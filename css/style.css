@@ -1,7 +1,7 @@
 :root {
     --bg-color: #0C2D48;
     --app-color: #145DA0;
-    --text-color: black;
+    --text-color: rgb(255, 255, 255);
     --button-color: #2E8BC0;
     --button-color-hover: #2878a7;
     --display-bg: #55b0cf;
