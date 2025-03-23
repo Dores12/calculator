@@ -3,8 +3,9 @@ let currentInput = "";  // Aktuálne zadávané číslo
 let operator = "";  // Aktuálny operátor
 let equalButton = null;
 let lastButton = null;
+let value = "";
 
- const resultDisplay = document.querySelector(".result");
+const resultDisplay = document.querySelector(".result");
 const inputDisplay = document.querySelector(".input");
 
 
@@ -14,7 +15,7 @@ document.addEventListener("keydown", handleInput);
 
 function handleInput(event) {
 
-    let value = "";
+    
 
     if (event.type === "click" && event.target.tagName === "BUTTON") {
         value = event.target.textContent;
@@ -26,6 +27,7 @@ function handleInput(event) {
         } else if (event.key === "+" || event.key === "-" || event.key === "*" || event.key === "/") {
             value = event.key;
         } else if (event.key === "Enter") {
+            event.preventDefault();
             value = "=";
         } else if (event.key === "Backspace") {
             value = "C";
@@ -36,6 +38,7 @@ function handleInput(event) {
         }
     }
 
+    console.log("Hodnota priradená k hodnotu:", value); // Skontrolujme, či dostávame hodnotu správne.
 
         if (!isNaN(value)) { 
             // Ak je číslo alebo desatinná čiarka, pridáme ho do currentInput
@@ -57,6 +60,7 @@ function handleInput(event) {
             console.log("Výsledok:", result);
             continueCalculator(result); // Resetujeme kalkulačku s výsledkom aby sme vedeli pokračovať ďalej
             equalButton = value; 
+            currentInput = "";
         } else if (value === "C") {
             // Ak stlačíme "C" tak úplne resetujeme kalkulačku a všetky hodnoty
             reset()
