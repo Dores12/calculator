@@ -9,10 +9,32 @@ const inputDisplay = document.querySelector(".input");
 
 
 
-document.querySelector(".buttons").addEventListener("click", function(event) {
+document.querySelector(".buttons").addEventListener("click", handleInput);
+document.addEventListener("keydown", handleInput);
 
-    if (event.target.tagName === "BUTTON") {
-        let value = event.target.textContent;
+function handleInput(event) {
+
+    let value = "";
+
+    if (event.type === "click" && event.target.tagName === "BUTTON") {
+        value = event.target.textContent;
+    } else if (event.type === "keydown") {
+        if (event.code.startsWith("Digit")) {
+            value = event.code.replace("Digit", ""); // Správne čísla (1-9)
+        } else if (["Numpad0", "Numpad1", "Numpad2", "Numpad3", "Numpad4", "Numpad5", "Numpad6", "Numpad7", "Numpad8", "Numpad9"].includes(event.code)) {
+            value = event.code.replace("Numpad", ""); // Čísla z numerickej klávesnice
+        } else if (event.key === "+" || event.key === "-" || event.key === "*" || event.key === "/") {
+            value = event.key;
+        } else if (event.key === "Enter") {
+            value = "=";
+        } else if (event.key === "Backspace") {
+            value = "C";
+        } else if (event.key === "," || event.key === ".") {
+            value = ".";
+        } else {
+            return
+        }
+    }
 
 
         if (!isNaN(value)) { 
@@ -66,9 +88,9 @@ document.querySelector(".buttons").addEventListener("click", function(event) {
         }
         
         lastButton = value;
-    }
+    };
     
-});
+
 
 // Funkcia na výpočet výsledku
 function calculate(numbers, operator) {

@@ -46,6 +46,7 @@ body {
 
 #equal {
     grid-column: span 4;
+    background-color: rgb(246, 58, 58);
 }
 
 
