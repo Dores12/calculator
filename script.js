@@ -84,6 +84,8 @@ function handleInput(event) {
             if (operator !== "" && currentInput !== "") {
                 numbers.push(parseFloat(currentInput));
                 let result = calculate(numbers, operator);
+                inputDisplay.textContent = "";
+                resultDisplay.textContent = result;
                 numbers = [result]; // Uložíme výsledok ako prvé číslo
                 operators = []; // Resetujeme operátory
                 currentInput = "";
