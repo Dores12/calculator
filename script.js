@@ -22,18 +22,24 @@ function handleInput(event) {
     } else if (event.type === "keydown") {
         if (event.code.startsWith("Digit")) {
             value = event.code.replace("Digit", ""); // Správne čísla (1-9)
-        } else if (["Numpad0", "Numpad1", "Numpad2", "Numpad3", "Numpad4", "Numpad5", "Numpad6", "Numpad7", "Numpad8", "Numpad9"].includes(event.code)) {
+        } 
+        else if (["Numpad0", "Numpad1", "Numpad2", "Numpad3", "Numpad4", "Numpad5", "Numpad6", "Numpad7", "Numpad8", "Numpad9"].includes(event.code)) {
             value = event.code.replace("Numpad", ""); // Čísla z numerickej klávesnice
-        } else if (event.key === "+" || event.key === "-" || event.key === "*" || event.key === "/") {
+        } 
+        else if (event.key === "+" || event.key === "-" || event.key === "*" || event.key === "/") {
             value = event.key;
-        } else if (event.key === "Enter") {
+        } 
+        else if (event.key === "Enter") {
             event.preventDefault();
             value = "=";
-        } else if (event.key === "Backspace") {
+        } 
+        else if (event.key === "Backspace") {
             value = "C";
-        } else if (event.key === "," || event.key === ".") {
+        } 
+        else if (event.key === "," || event.key === ".") {
             value = ".";
-        } else {
+        } 
+        else {
             return
         }
     }
@@ -44,27 +50,31 @@ function handleInput(event) {
             // Ak je číslo alebo desatinná čiarka, pridáme ho do currentInput
             if (lastButton === equalButton) reset() // Ak po stalčení = nenasleduje nejaký operátor, resetujeme kalkulačku
             currentInput += value;
-            console.log("Zadávané číslo:", currentInput);
             inputDisplay.textContent += value;
-        } else if (value === "," || value === ".") {
+
+        } 
+        else if (value === "," || value === ".") {
             if (!currentInput.includes(".")) {
                 currentInput += "."
                 inputDisplay.textContent += value;
             }
-        } else if (value === "=") {
+        } 
+        else if (value === "=") {
             // Ak stlačíme "=", vykonáme výpočet
             if (currentInput !== "") numbers.push(parseFloat(currentInput)); // Uložíme posledné číslo
             let result = calculate(numbers, operator);
             inputDisplay.textContent = "";
             resultDisplay.textContent = result;
-            console.log("Výsledok:", result);
             continueCalculator(result); // Resetujeme kalkulačku s výsledkom aby sme vedeli pokračovať ďalej
             equalButton = value; 
             currentInput = "";
-        } else if (value === "C") {
+
+        } 
+        else if (value === "C") {
             // Ak stlačíme "C" tak úplne resetujeme kalkulačku a všetky hodnoty
             reset()
-        } else {
+        } 
+        else {
             // Ak je to operátor (+, -, *, /)
 
             // Nepovoli vložiť 2 rovnaké operátory za sebou
@@ -74,7 +84,6 @@ function handleInput(event) {
             if (operator !== "" && currentInput !== "") {
                 numbers.push(parseFloat(currentInput));
                 let result = calculate(numbers, operator);
-                console.log("Priebežný výsledok:", result);
                 numbers = [result]; // Uložíme výsledok ako prvé číslo
                 operators = []; // Resetujeme operátory
                 currentInput = "";
@@ -86,7 +95,6 @@ function handleInput(event) {
                 
             }
             operator = value; // Uložíme operátor
-            console.log("Uložené hodnoty:", numbers, "Operátor:", operator);
 
             inputDisplay.textContent += value;
         }
